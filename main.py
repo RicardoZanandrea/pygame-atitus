@@ -7,22 +7,22 @@ pygame.init()
 
 relogio = pygame.time.Clock()
 icone  = pygame.image.load("assets/icone.png")
-iron = pygame.image.load("assets/iron.png")
+lebron = pygame.image.load("assets/lebron.png")
 fundo = pygame.image.load("assets/fundo.png")
 fundoStart = pygame.image.load("assets/fundoStart.png")
 fundoDead = pygame.image.load("assets/fundoDead.png")
 
-missel = pygame.image.load("assets/missile.png")
+trophy = pygame.image.load("assets/trophy.png")
 tamanho = (800,600)
 tela = pygame.display.set_mode( tamanho ) 
-pygame.display.set_caption("Iron Man do Marcão")
+pygame.display.set_caption("King James")
 pygame.display.set_icon(icone)
 missileSound = pygame.mixer.Sound("assets/missile.wav")
 explosaoSound = pygame.mixer.Sound("assets/explosao.wav")
 fonte = pygame.font.SysFont("comicsans",28)
 fonteStart = pygame.font.SysFont("comicsans",55)
 fonteMorte = pygame.font.SysFont("arial",120)
-pygame.mixer.music.load("assets/ironsound.mp3")
+pygame.mixer.music.load("assets/soundtrack.mp3")
 
 branco = (255,255,255)
 preto = (0, 0 ,0 )
@@ -35,14 +35,14 @@ def jogar(nome):
     posicaoYPersona = 300
     movimentoXPersona  = 0
     movimentoYPersona  = 0
-    posicaoXMissel = 400
-    posicaoYMissel = -240
-    velocidadeMissel = 1
+    posicaoXTrophy = 400
+    posicaoYTrophy = -240
+    velocidadeTrophy = 1
     pontos = 0
     larguraPersona = 250
     alturaPersona = 127
-    larguaMissel  = 50
-    alturaMissel  = 250
+    larguaTrophy  = 50
+    alturaTrophy  = 250
     dificuldade  = 20
 
     while True:
@@ -83,30 +83,30 @@ def jogar(nome):
         tela.fill(branco)
         tela.blit(fundo, (0,0) )
         #pygame.draw.circle(tela, preto, (posicaoXPersona,posicaoYPersona), 40, 0 )
-        tela.blit( iron, (posicaoXPersona, posicaoYPersona) )
+        tela.blit( lebron, (posicaoXPersona, posicaoYPersona) )
         
-        posicaoYMissel = posicaoYMissel + velocidadeMissel
-        if posicaoYMissel > 600:
-            posicaoYMissel = -240
+        posicaoYTrophy = posicaoYTrophy + velocidadeTrophy
+        if posicaoYTrophy > 600:
+            posicaoYTrophy = -240
             pontos = pontos + 1
-            velocidadeMissel = velocidadeMissel + 1
-            posicaoXMissel = random.randint(0,800)
+            velocidadeTrophy = velocidadeTrophy + 1
+            posicaoXTrophy = random.randint(0,800)
             pygame.mixer.Sound.play(missileSound)
             
             
-        tela.blit( missel, (posicaoXMissel, posicaoYMissel) )
+        tela.blit( trophy, (posicaoXTrophy, posicaoYTrophy) )
         
         texto = fonte.render(nome+"- Pontos: "+str(pontos), True, branco)
         tela.blit(texto, (10,10))
         
         pixelsPersonaX = list(range(posicaoXPersona, posicaoXPersona+larguraPersona))
         pixelsPersonaY = list(range(posicaoYPersona, posicaoYPersona+alturaPersona))
-        pixelsMisselX = list(range(posicaoXMissel, posicaoXMissel + larguaMissel))
-        pixelsMisselY = list(range(posicaoYMissel, posicaoYMissel + alturaMissel))
+        pixelsTrophyX = list(range(posicaoXTrophy, posicaoXTrophy + larguaTrophy))
+        pixelsTrophyY = list(range(posicaoYTrophy, posicaoYTrophy + alturaTrophy))
         
-        #print( len( list( set(pixelsMisselX).intersection(set(pixelsPersonaX))   ) )   )
-        if  len( list( set(pixelsMisselY).intersection(set(pixelsPersonaY))) ) > dificuldade:
-            if len( list( set(pixelsMisselX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
+        #print( len( list( set(pixelsTrophyX).intersection(set(pixelsPersonaX))   ) )   )
+        if  len( list( set(pixelsTrophyY).intersection(set(pixelsPersonaY))) ) > dificuldade:
+            if len( list( set(pixelsTrophyX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
                 dead(nome, pontos)
         
     
