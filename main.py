@@ -6,23 +6,23 @@ from tkinter import simpledialog
 pygame.init()
 
 relogio = pygame.time.Clock()
-icone  = pygame.image.load("assets/icone.png")
-lebron = pygame.image.load("assets/lebron.png")
-fundo = pygame.image.load("assets/fundo.png")
-fundoStart = pygame.image.load("assets/fundoStart.png")
-fundoDead = pygame.image.load("assets/fundoDead.png")
+icone  = pygame.image.load("recursos/icone.png")
+lebron = pygame.image.load("recursos/lebron.png")
+fundo = pygame.image.load("recursos/fundo.png")
+fundoStart = pygame.image.load("recursos/fundoStart.png")
+fundoDead = pygame.image.load("recursos/fundoDead.png")
+trophy = pygame.image.load("recursos/trophy.png")
 
-trophy = pygame.image.load("assets/trophy.png")
 tamanho = (800,600)
 tela = pygame.display.set_mode( tamanho ) 
 pygame.display.set_caption("King James")
 pygame.display.set_icon(icone)
-missileSound = pygame.mixer.Sound("assets/missile.wav")
-explosaoSound = pygame.mixer.Sound("assets/explosao.wav")
+missileSound = pygame.mixer.Sound("recursos/missile.wav")
+explosaoSound = pygame.mixer.Sound("recursos/explosao.wav")
 fonte = pygame.font.SysFont("comicsans",28)
 fonteStart = pygame.font.SysFont("comicsans",55)
 fonteMorte = pygame.font.SysFont("arial",120)
-pygame.mixer.music.load("assets/soundtrack.mp3")
+pygame.mixer.music.load("recursos/soundtrack.mp3")
 
 branco = (255,255,255)
 preto = (0, 0 ,0 )
@@ -39,11 +39,11 @@ def jogar(nome):
     posicaoYTrophy = -240
     velocidadeTrophy = 1
     pontos = 0
-    larguraPersona = 250
-    alturaPersona = 127
-    larguaTrophy  = 50
-    alturaTrophy  = 250
-    dificuldade  = 20
+    larguraPersona = 300
+    alturaPersona = 219
+    larguraTrophy  = 120
+    alturaTrophy  = 153
+    dificuldade  = 0
 
     while True:
         for evento in pygame.event.get():
@@ -101,7 +101,7 @@ def jogar(nome):
         
         pixelsPersonaX = list(range(posicaoXPersona, posicaoXPersona+larguraPersona))
         pixelsPersonaY = list(range(posicaoYPersona, posicaoYPersona+alturaPersona))
-        pixelsTrophyX = list(range(posicaoXTrophy, posicaoXTrophy + larguaTrophy))
+        pixelsTrophyX = list(range(posicaoXTrophy, posicaoXTrophy + larguraTrophy))
         pixelsTrophyY = list(range(posicaoYTrophy, posicaoYTrophy + alturaTrophy))
         
         #print( len( list( set(pixelsTrophyX).intersection(set(pixelsPersonaX))   ) )   )
