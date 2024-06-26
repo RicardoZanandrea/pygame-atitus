@@ -2,6 +2,7 @@ import pygame
 import random
 import os
 from tkinter import simpledialog
+import funcoes
 
 pygame.init()
 
@@ -11,6 +12,7 @@ lebron = pygame.image.load("recursos/lebron.png")
 fundo = pygame.image.load("recursos/fundo.png")
 fundoStart = pygame.image.load("recursos/fundoStart.png")
 fundoDead = pygame.image.load("recursos/fundoDead.png")
+missile = pygame.image.load("recursos/missile.png")
 trophy = pygame.image.load("recursos/trophy.png")
 
 tamanho = (800,600)
@@ -19,9 +21,9 @@ pygame.display.set_caption("King James")
 pygame.display.set_icon(icone)
 missileSound = pygame.mixer.Sound("recursos/missile.wav")
 explosaoSound = pygame.mixer.Sound("recursos/explosao.wav")
-fonte = pygame.font.SysFont("comicsans",28)
-fonteStart = pygame.font.SysFont("comicsans",55)
-fonteMorte = pygame.font.SysFont("arial",120)
+fonte = pygame.font.SysFont("arialblack",28)
+fonteStart = pygame.font.SysFont("arialblack",55)
+fonteMorte = pygame.font.SysFont("arialblack",100)
 pygame.mixer.music.load("recursos/soundtrack.mp3")
 
 branco = (255,255,255)
@@ -31,18 +33,22 @@ preto = (0, 0 ,0 )
 def jogar(nome):
     pygame.mixer.Sound.play(missileSound)
     pygame.mixer.music.play(-1)
-    posicaoXPersona = 400
-    posicaoYPersona = 300
+    posicaoXPersona = 250
+    posicaoYPersona = 380
     movimentoXPersona  = 0
-    movimentoYPersona  = 0
-    posicaoXTrophy = 400
-    posicaoYTrophy = -240
+    posicaoXTrophy = 150
+    posicaoYTrophy = -200
     velocidadeTrophy = 1
+    posicaoXMissile = 400
+    posicaoYMissile = -200
+    velocidadeMissile = 1
     pontos = 0
-    larguraPersona = 300
+    larguraPersona = 155
     alturaPersona = 219
-    larguraTrophy  = 120
-    alturaTrophy  = 153
+    larguraTrophy  = 140
+    alturaTrophy  = 155
+    larguraMissel  = 50
+    alturaMissel  = 250
     dificuldade  = 0
 
     while True:
@@ -57,29 +63,15 @@ def jogar(nome):
                 movimentoXPersona = 0
             elif evento.type == pygame.KEYUP and evento.key == pygame.K_LEFT:
                 movimentoXPersona = 0
-            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_UP:
-                movimentoYPersona = -10
-            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_DOWN:
-                movimentoYPersona = 10
-            elif evento.type == pygame.KEYUP and evento.key == pygame.K_UP:
-                movimentoYPersona = 0
-            elif evento.type == pygame.KEYUP and evento.key == pygame.K_DOWN:
-                movimentoYPersona = 0
                 
-        posicaoXPersona = posicaoXPersona + movimentoXPersona            
-        posicaoYPersona = posicaoYPersona + movimentoYPersona            
+        posicaoXPersona = posicaoXPersona + movimentoXPersona                   
         
         if posicaoXPersona < 0 :
             posicaoXPersona = 10
-        elif posicaoXPersona >550:
-            posicaoXPersona = 540
+        elif posicaoXPersona > 500:
+            posicaoXPersona = 490
             
-        if posicaoYPersona < 0 :
-            posicaoYPersona = 10
-        elif posicaoYPersona > 473:
-            posicaoYPersona = 463
-        
-            
+
         tela.fill(branco)
         tela.blit(fundo, (0,0) )
         #pygame.draw.circle(tela, preto, (posicaoXPersona,posicaoYPersona), 40, 0 )
@@ -195,9 +187,6 @@ def ranking():
 
 def start():
     nome = simpledialog.askstring("Iron Man","Nome Completo:")
-    
-    
-    
     while True:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
